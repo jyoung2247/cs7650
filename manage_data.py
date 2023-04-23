@@ -1,6 +1,5 @@
 import jsonlines
 import sys
-from datasets import load_dataset
 
 
 def split_data(input_filepath, output_filepath):
@@ -36,18 +35,21 @@ def create_dataset_small(input_filepath, output_filepath, dataset_len):
           idx = 0
           for obj in reader:
                if idx < dataset_len:
+                    reddit_data = {}
+                    reddit_data['score'] = obj['score']
+                    reddit_data['body'] = obj['body']
+                    #reddit_data['body'] = obj['body'] + obj['subreddit']
+                    reddit_data['body'] = obj['body'] + " [SEP] " + obj['subreddit']
+                    #reddit_data['body'] = obj['body'] + " [SEP] " + obj['subreddit'] + " [SEP] " + obj['created_utc']
+                    obj = reddit_data
                     writer.write(obj)
                     idx+=1
                else:
                     break
-def load_data():
-     access_token = "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"
-     dataset = load_dataset("jyoung2247/reddit_data_small", use_auth_token=access_token)
-     return dataset
 
 #Example of how to load df from jsonlines
 #df = pd.read_json('reddit_data_small.json', lines=True)
 
 #split_data('D:\Datasets\RC_2015-01.json', 'D:\Datasets\\reddit_data')
 
-#create_dataset_small('D:\Datasets\\reddit_data_part_0.json', 'reddit_data_small.json', 100000)
+create_dataset_small('D:\Datasets\\reddit_data_part_0.json', 'reddit_data_small.json', 100000)
