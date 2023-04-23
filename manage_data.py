@@ -35,13 +35,13 @@ def create_dataset_small(input_filepath, output_filepath, dataset_len):
           idx = 0
           for obj in reader:
                if idx < dataset_len:
-                    reddit_data = {}
-                    reddit_data['score'] = obj['score']
-                    reddit_data['body'] = obj['body']
-                    #reddit_data['body'] = obj['body'] + obj['subreddit']
-                    reddit_data['body'] = obj['body'] + " [SEP] " + obj['subreddit']
-                    #reddit_data['body'] = obj['body'] + " [SEP] " + obj['subreddit'] + " [SEP] " + obj['created_utc']
-                    obj = reddit_data
+                    # reddit_data = {}
+                    # reddit_data['score'] = obj['score']
+                    # reddit_data['body'] = obj['body']
+                    # reddit_data['body'] = obj['body'] + obj['subreddit']
+                    # reddit_data['body'] = obj['body'] + " [SEP] " + obj['subreddit']
+                    # reddit_data['body'] = obj['body'] + " [SEP] " + obj['subreddit'] + " [SEP] " + obj['created_utc']
+                    # obj = reddit_data
                     writer.write(obj)
                     idx+=1
                else:
